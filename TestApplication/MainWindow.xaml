@@ -1,0 +1,84 @@
+﻿<Window x:Class="TestApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestApplication"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:OneLayout x:Key="OneLayout" />
+        <DataTemplate DataType="{x:Type local:OneLayout}"  >
+        </DataTemplate>
+        <local:TwoLayout x:Key="TwoLayout" />
+        <DataTemplate DataType="{x:Type local:TwoLayout}"  >
+        </DataTemplate>
+        <local:ThreeLayout x:Key="ThreeLayout" />
+        <DataTemplate DataType="{x:Type local:ThreeLayout}"  >
+        </DataTemplate> 
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="20*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Margin="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">Layout Name</Label>
+        <Label HorizontalAlignment="Left" Margin="5" Grid.Row="0" Grid.Column="1">Input Source</Label>
+        <TextBox Margin="5" Grid.Row="2" Grid.Column="0">
+            <TextBox.Text>Test
+            </TextBox.Text>
+        </TextBox>
+        <ComboBox IsSynchronizedWithCurrentItem="False" x:Name="Layout1" Margin="5" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding LayoutTypes }" DisplayMemberPath="Name"/>
+        <ContentControl Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" x:Name="layout1">
+            <ContentControl.Style>
+                <Style TargetType="{ x:Type ContentControl }" >
+                    <Setter Property="Content" Value="{DynamicResource ResourceKey=OneLayout}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedItem.LayoutType, ElementName=Layout1}" Value="One">
+                            <Setter Property="Content" Value="{DynamicResource ResourceKey=OneLayout}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SelectedItem.LayoutType, ElementName=Layout1}" Value="Two">
+                            <Setter Property="Content" Value="{DynamicResource ResourceKey=TwoLayout}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SelectedItem.LayoutType, ElementName=Layout1}" Value="Three">
+                            <Setter Property="Content" Value="{DynamicResource ResourceKey=ThreeLayout}" />
+                        </DataTrigger>                      
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+        <TextBox Margin="5" Grid.Row="5" Grid.Column="0">
+            <TextBox.Text>Test
+            </TextBox.Text>
+        </TextBox>
+        <ComboBox IsSynchronizedWithCurrentItem="False"  x:Name="Layout2" Margin="5" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding LayoutTypes }" DisplayMemberPath="Name"/>
+        <ContentControl Grid.Row="3" Grid.RowSpan="3" Grid.Column="2" x:Name="layout2">
+            <ContentControl.Style>
+                <Style TargetType="{ x:Type ContentControl }" >
+                    <Setter Property="Content" Value="{DynamicResource ResourceKey=OneLayout}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedItem.LayoutType, ElementName=Layout2}" Value="One">
+                            <Setter Property="Content" Value="{DynamicResource ResourceKey=OneLayout}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SelectedItem.LayoutType, ElementName=Layout2}" Value="Two">
+                            <Setter Property="Content" Value="{DynamicResource ResourceKey=TwoLayout}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SelectedItem.LayoutType, ElementName=Layout2}" Value="Three">
+                            <Setter Property="Content" Value="{DynamicResource ResourceKey=ThreeLayout}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+    </Grid>
+</Window>
